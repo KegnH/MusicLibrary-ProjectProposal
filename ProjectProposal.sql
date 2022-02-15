@@ -190,20 +190,29 @@ insert into Rates values(11100, 10000, 9.8) ;
 
 -- DML COMMANDS (queries)
 
+-- View Basic Song Information(Title,Artist,Album)
 create View BasicSongInfo AS
 SELECT s.SongTitle, s.ArtistName, s.AlbumName FROM SONG s;
 
+-- Show Artist Name and Song Title for songs with Genre R&B/Soul
+create View RBSongs AS
 SELECT a.ArtistName , s.SongTitle , Genre
 FROM ARTIST a , SONG s
 WHERE a.ArtistID = s.ArtistID AND Genre='R&B/Soul';
 
-SELECT a1.ArtistName , a2.ArtistName , s.SongTitle
+-- Display Artists and SongTitle using Features table
+create View Featuring AS
+SELECT a1.ArtistName as PrimaryArtist , s.SongTitle , a2.ArtistName as FeaturedArtist
 FROM ARTIST a1 , SONG s, ARTIST a2 , Features f
 WHERE a1.ArtistID = s.ArtistID AND s.SongID = f.SongID AND a2.ArtistID = f.ArtistID;
--- create View AllSongsFromAlbum AS
--- SELECT
+
+-- Display all songs of an album
+create View AllSongsFromAlbum AS
+SELECT b.AlbumTitle , s.SongTitle
+FROM AppearsOn a , ALBUM b , SONG s
+WHERE a.SongID = s.SongID AND a.AlbumID = b.AlbumID;
+
 -- trigger: before insert on song release date must be today or before 
 -- views for when a song plays
 -- groups song by album, artists
 -- display artist/song/album info (name, ratings)
--- display all songs of an album
