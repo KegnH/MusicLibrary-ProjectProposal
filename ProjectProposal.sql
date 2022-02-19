@@ -1,3 +1,6 @@
+-- Musical Library Database by Ke'gn Hart and Reid Trisler
+-- CSC-430 001
+
 drop database IF EXISTS music_library;
 create database music_library;
 Use music_library;
